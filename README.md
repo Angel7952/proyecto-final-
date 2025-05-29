@@ -2,7 +2,7 @@
 ## 👥 Integrantes del grupo
 - Angel Cortes (Angel7952)
 - Duban Vargaz (Dub4nvf-0827)
--### Proyecto: Sistema de Parqueadero Inteligente (Python CLI)
+-# Proyecto: Sistema de Parqueadero Inteligente (Python CLI)
 - Simulación de mapa de parqueadero con matriz 8x8.
 - Registro automático de entrada y salida de vehículos.
 - Cálculo dinámico del tiempo de permanencia y tarifa.
