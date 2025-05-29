@@ -33,7 +33,7 @@ brinda realismo y permite automatizar el cobro del parqueadero
 - Se guarda la hora de entrada usando `datetime.now()` se le nombro como una funcion de llamada.
 - al salir, se calcula cuanto tiempo estuvo en el parqueadero, se calcula por minuto.
 - - Se calcula la tarifa multiplicando por $1000 por hora (proporcionalmente).
-- 
-- 
+  
+
 
 
