@@ -2,12 +2,11 @@
 #include <string>
 #include <vector>
 #include <map>
-// #include <algorithm> // ¡QUITADA DEFINITIVAMENTE!
-#include "Menu.h" // Asumiendo que este es el archivo que contiene mostrarMenuPrincipal() y obtenerOpcionMenu()
+#include "Menu.h"
 
 using namespace std;
 
-// Función auxiliar para obtener el mínimo de dos números (reemplaza std::min)
+// FunciÃ³n auxiliar para obtener el mÃ­nimo de dos nÃºmeros (reemplaza std::min)
 int getMin(int a, int b) {
     return (a < b) ? a : b;
 }
@@ -63,9 +62,9 @@ struct Jugador {
     map<string, Objeto> mochila;
 };
 
-// Función para evolucionar un Puchamon
+// FunciÃ³n para evolucionar un Puchamon
 void evolucionarPuchamon(Puchamon& p) {
-    string nombre_original = p.nombre; // Guarda el nombre original antes de la evolución
+    string nombre_original = p.nombre; // Guarda el nombre original antes de la evoluciÃ³n
 
     if (p.nombre == "Pichaku") {
         p.nombre = "Riatachu";
@@ -92,11 +91,11 @@ void evolucionarPuchamon(Puchamon& p) {
         p.habilidades.push_back({ "Baboso Venenoso", 45, Estado::VENENO, 25 });
     }
     p.puede_evolucionar = false;
-    // Mensaje de evolución actualizado
-    cout << "¡" << nombre_original << " ha evolucionado a " << p.nombre << "!" << endl;
+    // Mensaje de evoluciÃ³n actualizado
+    cout << "Â¡" << nombre_original << " ha evolucionado a " << p.nombre << "!" << endl;
 }
 
-// Función que aplica daño y efectos de un ataque
+// FunciÃ³n que aplica daÃ±o y efectos de un ataque
 void aplicarDano(Puchamon& atacante, Puchamon& defensor, const Habilidad& habilidad) {
     if (atacante.puntos >= habilidad.costo) {
         int dano_final = habilidad.dano;
@@ -115,7 +114,7 @@ void aplicarDano(Puchamon& atacante, Puchamon& defensor, const Habilidad& habili
         // Aplicar efecto si lo tiene
         if (habilidad.efecto != Estado::NINGUNO) {
             if (defensor.estado_actual != Estado::NINGUNO) {
-                cout << defensor.nombre << " ya está afectado por ";
+                cout << defensor.nombre << " ya estÃ¡ afectado por ";
                 switch (defensor.estado_actual) {
                 case Estado::VENENO: cout << "veneno"; break;
                 case Estado::ELECTROCUTADO: cout << "electrocutado"; break;
@@ -127,7 +126,7 @@ void aplicarDano(Puchamon& atacante, Puchamon& defensor, const Habilidad& habili
 
             defensor.estado_actual = habilidad.efecto;
 
-            // Configurar duración de efectos
+            // Configurar duraciÃ³n de efectos
             switch (habilidad.efecto) {
             case Estado::VENENO:
                 defensor.contador_estado = 3;  // 3 turnos
@@ -142,7 +141,7 @@ void aplicarDano(Puchamon& atacante, Puchamon& defensor, const Habilidad& habili
                 break;
             }
 
-            cout << defensor.nombre << " ahora está ";
+            cout << defensor.nombre << " ahora estÃ¡ ";
             switch (habilidad.efecto) {
             case Estado::VENENO: cout << "envenenado"; break;
             case Estado::ELECTROCUTADO: cout << "electrocutado (paralizado)"; break;
@@ -157,7 +156,7 @@ void aplicarDano(Puchamon& atacante, Puchamon& defensor, const Habilidad& habili
     }
 }
 
-// Función que aplica los efectos al inicio del turno
+// FunciÃ³n que aplica los efectos al inicio del turno
 void aplicarEfectosDeEstado(Puchamon& puchamon) {
     if (puchamon.estado_actual != Estado::NINGUNO) {
         cout << puchamon.nombre << " sufre por estar ";
@@ -180,13 +179,13 @@ void aplicarEfectosDeEstado(Puchamon& puchamon) {
         puchamon.contador_estado--;
         if (puchamon.contador_estado <= 0) {
             puchamon.estado_actual = Estado::NINGUNO;
-            cout << puchamon.nombre << " ya no está afectado." << endl;
+            cout << puchamon.nombre << " ya no estÃ¡ afectado." << endl;
         }
     }
 
-    // Aumentar energía cada turno (5 puntos hasta el máximo)
+    // Aumentar energÃ­a cada turno (5 puntos hasta el mÃ¡ximo)
     if (puchamon.puntos < puchamon.puntos_max) {
-        // Usa la función getMin personalizada en lugar de std::min
+        // Usa la funciÃ³n getMin personalizada en lugar de std::min
         int aumento = getMin(5, puchamon.puntos_max - puchamon.puntos);
         puchamon.puntos += aumento;
         cout << puchamon.nombre << " recupera " << aumento << " puntos de energia." << endl;
@@ -351,7 +350,7 @@ void cambiarPuchamon(Jugador& jugador) {
 
 // Funcion principal de batalla
 void iniciarCombate(Jugador& jugador, Puchamon& enemigo) {
-    cout << "¡Comienza la batalla entre " << jugador.nombre << " y " << enemigo.nombre << "!" << endl;
+    cout << "Â¡Comienza la batalla entre " << jugador.nombre << " y " << enemigo.nombre << "!" << endl;
 
     // Reiniciar salud y puntos de Miaotu para cada combate
     enemigo.salud = enemigo.salud_max;
@@ -364,7 +363,7 @@ void iniciarCombate(Jugador& jugador, Puchamon& enemigo) {
         cout << jugador.puchamones[jugador.puchamon_actual].nombre << " esta debilitado, cambia a otro Puchamon!" << endl;
         cambiarPuchamon(jugador);
         if (jugador.puchamones[jugador.puchamon_actual].salud <= 0) { // Si todos estan debilitados al inicio
-            cout << "Todos tus Puchamon estan debilitados. ¡No puedes luchar!" << endl;
+            cout << "Todos tus Puchamon estan debilitados. Â¡No puedes luchar!" << endl;
             cout << "\nPresiona Enter para continuar...";
             cin.get();
             return;
@@ -377,8 +376,8 @@ void iniciarCombate(Jugador& jugador, Puchamon& enemigo) {
         if (jugador.puchamones[jugador.puchamon_actual].salud <= 0) {
             cout << jugador.puchamones[jugador.puchamon_actual].nombre << " no puede luchar!" << endl;
             cambiarPuchamon(jugador);
-            if (!tienePuchamonVivo(jugador)) { // Si después de cambiar, no hay vivos
-                cout << "No tienes Puchamon vivos. ¡Perdiste la batalla!" << endl;
+            if (!tienePuchamonVivo(jugador)) { // Si despuÃ©s de cambiar, no hay vivos
+                cout << "No tienes Puchamon vivos. Â¡Perdiste la batalla!" << endl;
                 break;
             }
             continue; // Volver al inicio del bucle para el nuevo Puchamon
@@ -404,7 +403,7 @@ void iniciarCombate(Jugador& jugador, Puchamon& enemigo) {
         }
         cout << endl;
 
-        cout << "\n¿Que haces?" << endl;
+        cout << "\nÂ¿Que haces?" << endl;
         cout << "1. Atacar" << endl;
         cout << "2. Cambiar Puchamon" << endl;
         cout << "3. Usar objeto" << endl;
@@ -414,18 +413,18 @@ void iniciarCombate(Jugador& jugador, Puchamon& enemigo) {
         cin >> accion;
         cin.ignore(256, '\n');
 
-        bool turno_valido_jugador = false; // Bandera para controlar si el jugador hizo una acción válida
+        bool turno_valido_jugador = false; // Bandera para controlar si el jugador hizo una acciÃ³n vÃ¡lida
 
         if (accion == 1) {
             mostrarHabilidades(pucha_actual);
-            cout << "¿Que ataque usas? (numero): ";
+            cout << "Â¿Que ataque usas? (numero): ";
             int ataque_idx;
             cin >> ataque_idx;
             cin.ignore(256, '\n');
 
             if (ataque_idx >= 1 && ataque_idx <= pucha_actual.habilidades.size()) {
                 Habilidad ataque_elegido = pucha_actual.habilidades[ataque_idx - 1];
-                if (pucha_actual.puntos >= ataque_elegido.costo) { // Verificar PP antes de aplicar daño
+                if (pucha_actual.puntos >= ataque_elegido.costo) { // Verificar PP antes de aplicar daÃ±o
                     aplicarDano(pucha_actual, enemigo, ataque_elegido);
                     turno_valido_jugador = true;
                 }
@@ -438,23 +437,23 @@ void iniciarCombate(Jugador& jugador, Puchamon& enemigo) {
             }
         }
         else if (accion == 2) {
-            int puchamon_anterior_idx = jugador.puchamon_actual; // Guarda el índice antes del cambio
+            int puchamon_anterior_idx = jugador.puchamon_actual; // Guarda el Ã­ndice antes del cambio
             cambiarPuchamon(jugador);
-            // Si el cambio fue a un Puchamon diferente y válido, se considera turno válido
+            // Si el cambio fue a un Puchamon diferente y vÃ¡lido, se considera turno vÃ¡lido
             if (jugador.puchamon_actual != puchamon_anterior_idx && jugador.puchamones[jugador.puchamon_actual].salud > 0) {
                 turno_valido_jugador = true;
             }
             else if (jugador.puchamon_actual == puchamon_anterior_idx) {
                 cout << "No cambiaste de Puchamon." << endl;
-                // No se consume el turno si no hubo cambio efectivo a otro Pokémon vivo
+                // No se consume el turno si no hubo cambio efectivo a otro PokÃ©mon vivo
             }
         }
         else if (accion == 3) {
-            // La función usarObjeto ahora maneja si el objeto se usó exitosamente
-            // Por simplicidad, asumimos que si se llega a esta línea, se intentó usar un objeto
-            // y el turno se consume, independientemente del éxito o no del uso del objeto.
-            // Si deseas que solo se consuma el turno si el objeto se USÓ con ÉXITO,
-            // la función usarObjeto debería devolver un bool. Por ahora, asumimos que intenta.
+            // La funciÃ³n usarObjeto ahora maneja si el objeto se usÃ³ exitosamente
+            // Por simplicidad, asumimos que si se llega a esta lÃ­nea, se intentÃ³ usar un objeto
+            // y el turno se consume, independientemente del Ã©xito o no del uso del objeto.
+            // Si deseas que solo se consuma el turno si el objeto se USÃ“ con Ã‰XITO,
+            // la funciÃ³n usarObjeto deberÃ­a devolver un bool. Por ahora, asumimos que intenta.
             usarObjeto(jugador);
             turno_valido_jugador = true; // Siempre consume el turno por intentar usar objeto
         }
@@ -462,15 +461,15 @@ void iniciarCombate(Jugador& jugador, Puchamon& enemigo) {
             cout << "Opcion invalida. Pierdes turno." << endl;
         }
 
-        // Aplicar efectos de estado del enemigo DESPUES de la acción del jugador (si el jugador hizo algo)
-        if (turno_valido_jugador) { // Solo si el jugador hizo una acción que consume turno
+        // Aplicar efectos de estado del enemigo DESPUES de la acciÃ³n del jugador (si el jugador hizo algo)
+        if (turno_valido_jugador) { // Solo si el jugador hizo una acciÃ³n que consume turno
             aplicarEfectosDeEstado(enemigo);
             if (enemigo.salud <= 0) break; // Si el enemigo cae por un efecto de estado del jugador
         }
 
 
         // --- Turno del enemigo ---
-        if (enemigo.salud <= 0 || !tienePuchamonVivo(jugador)) { // Si alguien ya ganó o el jugador no tiene Puchamon
+        if (enemigo.salud <= 0 || !tienePuchamonVivo(jugador)) { // Si alguien ya ganÃ³ o el jugador no tiene Puchamon
             break;
         }
 
@@ -487,7 +486,7 @@ void iniciarCombate(Jugador& jugador, Puchamon& enemigo) {
             bool puede_atacar = false;
             int max_dano = -1;
 
-            // Busca el ataque más dañino que puede usar
+            // Busca el ataque mÃ¡s daÃ±ino que puede usar
             for (const auto& h : enemigo.habilidades) {
                 if (enemigo.puntos >= h.costo && h.dano > max_dano) {
                     max_dano = h.dano;
@@ -496,7 +495,7 @@ void iniciarCombate(Jugador& jugador, Puchamon& enemigo) {
                 }
             }
 
-            // Si no puede usar el más dañino, busca el primero que pueda
+            // Si no puede usar el mÃ¡s daÃ±ino, busca el primero que pueda
             if (!puede_atacar && !enemigo.habilidades.empty()) {
                 for (const auto& h : enemigo.habilidades) {
                     if (enemigo.puntos >= h.costo) {
@@ -523,11 +522,11 @@ void iniciarCombate(Jugador& jugador, Puchamon& enemigo) {
     // Resultado final
     cout << "\n--- Fin de la batalla ---" << endl;
     if (enemigo.salud <= 0) {
-        cout << "¡Derrotaste a " << enemigo.nombre << "!" << endl;
+        cout << "Â¡Derrotaste a " << enemigo.nombre << "!" << endl;
         // Recompensas por ganar
-        // El operador [] de map insertará el elemento si no existe, o accederá a él si ya existe.
+        // El operador [] de map insertarÃ¡ el elemento si no existe, o accederÃ¡ a Ã©l si ya existe.
         // Luego, simplemente ajustamos el nombre, tipo y acumulamos la cantidad.
-        // Esto asegura que la cantidad se suma, no se sobrescribe con un valor fijo si ya existía.
+        // Esto asegura que la cantidad se suma, no se sobrescribe con un valor fijo si ya existÃ­a.
         jugador.mochila["Pocion"].nombre = "Pocion";
         jugador.mochila["Pocion"].tipo = TipoObjeto::CURACION;
         jugador.mochila["Pocion"].cantidad += 2; // Suma 2 a la cantidad actual (o a 0 si se acaba de crear)
@@ -539,7 +538,7 @@ void iniciarCombate(Jugador& jugador, Puchamon& enemigo) {
         cout << "Obtienes 2 Pociones y 1 Energia X!" << endl;
     }
     else {
-        cout << "¡Perdiste la batalla!" << endl;
+        cout << "Â¡Perdiste la batalla!" << endl;
     }
     cout << "\nPresiona Enter para continuar...";
     cin.get();
@@ -582,13 +581,13 @@ int main() {
 
     int opcion;
     do {
-        mostrarMenuPrincipal(); // Función del archivo Menu.h
-        opcion = obtenerOpcionMenu(); // Función del archivo Menu.h
+        mostrarMenuPrincipal(); // FunciÃ³n del archivo Menu.h
+        opcion = obtenerOpcionMenu(); // FunciÃ³n del archivo Menu.h
 
         switch (opcion) {
         case 1: // Iniciar Nuevo Juego / Combatir
             iniciarCombate(jugador, miaotu_template); // Pasa una copia del template de Miaotu
-            // Después del combate, el jugador puede que tenga que cambiar de Puchamon
+            // DespuÃ©s del combate, el jugador puede que tenga que cambiar de Puchamon
             // Si el puchamon actual esta debilitado, forzar un cambio si hay mas disponibles
             if (jugador.puchamones[jugador.puchamon_actual].salud <= 0 && tienePuchamonVivo(jugador)) {
                 cout << "Tu Puchamon actual esta debilitado. Por favor, elige otro." << endl;
@@ -601,14 +600,14 @@ int main() {
             cout << "2. Algunos ataques causan efectos de estado especiales (Veneno, Quemadura, Electrocutado) al enemigo." << endl;
             cout << "3. Puedes cambiar entre tus 3 Puchamon disponibles durante el combate." << endl;
             cout << "4. Usa objetos de tu mochila (Pociones, Energia X) para recuperar salud o energia." << endl;
-            cout << "5. ¡Usa las Piedras de Evolucion para hacer que tus Puchamon sean mas fuertes!" << endl;
-            cout << "6. ¡Derrota al legendario Miaotu para ganar el juego!" << endl;
+            cout << "5. Â¡Usa las Piedras de Evolucion para hacer que tus Puchamon sean mas fuertes!" << endl;
+            cout << "6. Â¡Derrota al legendario Miaotu para ganar el juego!" << endl;
             cout << "------------------" << endl;
             cout << "\nPresiona Enter para volver al menu...";
             cin.get(); // Pausa para que el usuario lea
             break;
         case 3: // Salir del Juego
-            cout << "¡Gracias por jugar! ¡Hasta luego!" << endl;
+            cout << "Â¡Gracias por jugar! Â¡Hasta luego!" << endl;
             break;
         default:
             cout << "Opcion no valida. Elige 1, 2 o 3." << endl;
