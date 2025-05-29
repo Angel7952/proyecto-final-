@@ -3,7 +3,7 @@
 - Angel Cortes (Angel7952) usuario de github
 - Duban Vargaz (Dub4nvf-0827)usuario de github
 
--# Proyecto: Sistema de Parqueadero Inteligente (Python CLI)
+-# Proyecto: Sistema de Parqueadero Inteligente (Python CLI)=Interfaz de línea de comando
 - Simulación de mapa de parqueadero con matriz 8x8.
 - Registro automático de entrada y salida de vehículos.
 - Cálculo dinámico del tiempo de permanencia y tarifa.
