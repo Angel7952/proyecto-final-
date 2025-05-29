@@ -1,7 +1,7 @@
 # proyecto-final- [pensamiento algoritmico]
 ## 👥 Integrantes del grupo
 - Angel Cortes (Angel7952) usuario de github
-- Duban Vargaz (Dub4nvf-0827)usuario de github
+- Duban Vargas (Dub4nvf-0827)usuario de github
 
 -# Proyecto: Sistema de Parqueadero Inteligente (Python CLI) =Interfaz de línea de comando
 - Simulación de mapa de parqueadero con matriz 8x8.
@@ -91,4 +91,5 @@ Este proyecto es un juego de rol (RPG) sencillo basado en Pokémon, desarrollado
     * Se implementa una "mochila" o inventario que contiene objetos (ej. pociones para vida, elixires para PP).
     * Hay una opción en el menú de combate para "Usar objeto".
     * Los objetos de evolución se aplican a un Pokémon para cambiar sus estadísticas o habilidades (si la evolución está completamente funcional, puedes detallar más cómo afecta al Pokémon).
-
+## ¿Como ejecutarlo?
+- Copia y pega el código en visual y agrega tambien el código de menu.h como archivo de encabezado, esto para que se pueda ver el menu o si no el juego se ejecuta en la pelea de una vez.
