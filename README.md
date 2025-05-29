@@ -1,7 +1,7 @@
 # proyecto-final- [pensamiento algoritmico]
 ## 👥 Integrantes del grupo
-- Angel Cortes (Angel7952)
-- Duban Vargaz (Dub4nvf-0827)
+- Angel Cortes (Angel7952) usuario de github
+- Duban Vargaz (Dub4nvf-0827)usuario de github
 
 -# Proyecto: Sistema de Parqueadero Inteligente (Python CLI)
 - Simulación de mapa de parqueadero con matriz 8x8.
