@@ -1,103 +1,95 @@
+import time
 from datetime import datetime
 
-# Constantes
-FILAS = 8
-COLUMNAS = 8
-TARIFA_POR_HORA = 1000
+# Parámetros del parqueadero
+filas = 8
+columnas = 8
 
-# Crear el mapa del parqueadero
-parqueadero = [['V' for _ in range(COLUMNAS)] for _ in range(FILAS)]
-parqueadero[0][0] = 'E'  # Entrada
-parqueadero[FILAS - 1][COLUMNAS - 1] = 'S'  # Salida
+# Crear el mapa inicial (lista de listas)
+mapa = [['V' for _ in range(columnas)] for _ in range(filas)]
+mapa[0][0] = 'E'  # Entrada
+mapa[filas-1][columnas-1] = 'S'  # Salida
 
-# Marcar vías y lugares libres
-for fila in range(1, FILAS - 1):
-    parqueadero[fila][1] = 'V'
-    parqueadero[fila][2] = 'L'
+# Colocar parqueaderos conectados por vía
+for i in range(1, filas-1):
+    mapa[i][1] = 'V'  # Vía
+    mapa[i][2] = 'P'  # Parqueadero libre
 
-# Diccionario de vehículos {placa: hora_entrada}
+# Diccionario para guardar los vehículos
 vehiculos = {}
 
-def mostrar_parqueadero():
-    print("\nEstado del parqueadero:")
-    for fila in parqueadero:
+# Mostrar mapa
+def mostrar_mapa():
+    print("\nMapa del parqueadero:")
+    for fila in mapa:
         print(" ".join(fila))
 
-def buscar_lugar_libre():
-    for fila in range(1, FILAS - 1):
-        if parqueadero[fila][2] == 'L':
-            return fila
-    return None
-
-def ocupar_lugar():
-    fila_libre = buscar_lugar_libre()
-    if fila_libre is not None:
-        parqueadero[fila_libre][2] = 'X'
-        return True
-    return False
-
-def liberar_lugar():
-    for fila in range(1, FILAS - 1):
-        if parqueadero[fila][2] == 'X':
-            parqueadero[fila][2] = 'L'
+# Buscar parqueadero libre y ocuparlo
+def ocupar_espacio():
+    for i in range(1, filas-1):
+        if mapa[i][2] == 'P':
+            mapa[i][2] = 'X'
             return True
     return False
 
-def ingresar_vehiculo(placa):
-    placa = placa.strip().upper()
-    if not placa:
-        return "Placa inválida."
+# Liberar un espacio ocupado
+def liberar_espacio():
+    for i in range(1, filas-1):
+        if mapa[i][2] == 'X':
+            mapa[i][2] = 'P'
+            return True
+    return False
 
+# Ingresar vehículo
+def ingresar_vehiculo():
+    placa = input("Ingrese la placa del vehículo: ").upper()
     if placa in vehiculos:
-        return f"El vehículo con placa {placa} ya está registrado."
-
-    if ocupar_lugar():
-        hora_entrada = datetime.now()
-        vehiculos[placa] = hora_entrada
-        return f"Vehículo {placa} ingresó a las {hora_entrada.strftime('%H:%M:%S')}."
+        print("El vehículo ya está registrado.")
     else:
-        return "No hay lugares disponibles."
+        if ocupar_espacio():
+            hora_entrada = datetime.now()
+            vehiculos[placa] = hora_entrada
+            print(f"Vehículo {placa} ingresado a las {hora_entrada.strftime('%H:%M:%S')}.")
+        else:
+            print("No hay espacios disponibles.")
 
-def sacar_vehiculo(placa):
-    placa = placa.strip().upper()
-    if placa not in vehiculos:
-        return "Vehículo no encontrado."
+# Sacar vehículo
+def sacar_vehiculo():
+    placa = input("Ingrese la placa del vehículo: ").upper()
+    if placa in vehiculos:
+        hora_entrada = vehiculos[placa]
+        hora_salida = datetime.now()
+        tiempo = (hora_salida - hora_entrada).total_seconds() / 60  # en minutos
+        tarifa = round((tiempo / 60) * 1000)  # 1000 por hora
+        liberar_espacio()
+        print(f"Vehículo {placa} salió a las {hora_salida.strftime('%H:%M:%S')}")
+        print(f"Tiempo en parqueadero: {tiempo:.2f} minutos")
+        print(f"Total a pagar: ${tarifa}")
+        del vehiculos[placa]
+    else:
+        print("Vehículo no encontrado.")
 
-    hora_entrada = vehiculos[placa]
-    hora_salida = datetime.now()
-    minutos = (hora_salida - hora_entrada).total_seconds() / 60
-    tarifa = round((minutos / 60) * TARIFA_POR_HORA)
-    liberar_lugar()
-    del vehiculos[placa]
-
-    return (
-        f"Vehículo {placa} salió a las {hora_salida.strftime('%H:%M:%S')}\n"
-        f"Tiempo de permanencia: {minutos:.2f} minutos\n"
-        f"Total a pagar: ${tarifa}"
-    )
-
-def mostrar_menu():
+# Menú principal
+def menu():
     while True:
-        print("\n--- Menú del Parqueadero ---")
-        print("1. Mostrar estado del parqueadero")
+        print("\n--- Menú ---")
+        print("1. Mostrar mapa")
         print("2. Ingresar vehículo")
         print("3. Sacar vehículo")
         print("4. Salir")
         opcion = input("Seleccione una opción: ")
 
         if opcion == '1':
-            mostrar_parqueadero()
+            mostrar_mapa()
         elif opcion == '2':
-            placa = input("Ingrese la placa del vehículo: ")
-            print(ingresar_vehiculo(placa))
+            ingresar_vehiculo()
         elif opcion == '3':
-            placa = input("Ingrese la placa del vehículo: ")
-            print(sacar_vehiculo(placa))
+            sacar_vehiculo()
         elif opcion == '4':
-            print("Gracias por usar el sistema de parqueadero.")
+            print("Gracias por usar el sistema.")
             break
         else:
             print("Opción inválida. Intente de nuevo.")
 
-if __name__ == "__main__":
-    mostrar_menu()
+# Iniciar programa
+menu()
