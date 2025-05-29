@@ -7,7 +7,7 @@
 - Simulación de mapa de parqueadero con matriz 8x8.
 - Registro automático de entrada y salida de vehículos.
 - Cálculo dinámico del tiempo de permanencia y tarifa.
-- # Sistema de Parqueadero (Python CLI)
+- # Sistema de Parqueadero (Python CLI )=Interfaz de línea de comando
 - ## 🚗 Funcionalidades
 - mostrar la vista del parqueadero de forma una (matriz visual).
 - ingresar los vehiculos al paqueadero.
